@@ -18,8 +18,6 @@ public class DatabaseConnection {
             this.connection = DriverManager.getConnection(URL_DB, USERNAME_DB, PASSWORD_DB);
         } catch (ClassNotFoundException e) {
             throw new SQLException("Database Driver not found", e);
-        } catch (SQLException e) {
-            throw new SQLException("Error while establishing the database connection", e);
         }
     }
 
