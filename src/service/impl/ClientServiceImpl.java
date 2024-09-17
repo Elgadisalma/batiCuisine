@@ -5,6 +5,7 @@ import repository.ClientRepository;
 import repository.impl.ClientRepositoryImpl;
 import service.ClientService;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
@@ -30,5 +31,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Optional<Client> getClientById(Long id) {
         return clientRepository.getClient(id);
+    }
+
+    @Override
+    public List<Client> getAllClients() {
+        return clientRepository.getClients();
     }
 }

@@ -4,6 +4,7 @@ import entity.Client;
 import service.ClientService;
 import service.impl.ClientServiceImpl;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -75,7 +76,14 @@ public class ClientUi {
         menu();
     }
 
-    private void showAllClients() {}
+    private void showAllClients() {
+        List<Client> clients = clientService.getAllClients();
+        System.out.println("liste des clients");
+        for (Client client : clients) {
+            System.out.println(client);
+        }
+        menu();
+    }
 
     private void showOneClient() {
         System.out.println("Veuillez entrer l'id du client");

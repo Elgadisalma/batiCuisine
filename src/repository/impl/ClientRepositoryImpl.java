@@ -78,22 +78,23 @@ public class ClientRepositoryImpl implements ClientRepository{
         }
     }
 
-//    @Override
-//    public List<Client> getClients() {
-//        final String query = "SELECT * FROM " + tableName;
-//        final List<Client> clients = new ArrayList<>();
-//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-//            final ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                Client client = mapResultSetToClient(rs);
-//                clients.add(client);
-//            }
-//            return clients;
-//        }
-//        return List.of();
-//    }
-//
+    @Override
+    public List<Client> getClients() {
+        final String query = "SELECT * FROM " + tableName;
+        final List<Client> clients = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            final ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Client client = mapResultSetToClient(rs);
+                clients.add(client);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return clients;
+    }
+
 //    @Override
 //    public void updateClient(Client client) {
 //        final String query = "UPDATE " + tableName + " SET name = ?, adresse = ?, phoneNumber = ?, professionnel = ? WHERE id = ?";
