@@ -95,26 +95,26 @@ public class ClientRepositoryImpl implements ClientRepository{
         return clients;
     }
 
-//    @Override
-//    public void updateClient(Client client) {
-//        final String query = "UPDATE " + tableName + " SET name = ?, adresse = ?, phoneNumber = ?, professionnel = ? WHERE id = ?";
-//        try (final PreparedStatement stmt = connection.prepareStatement(query)) {
-//            int count = 1;
-//            stmt.setString(count++, client.getName());
-//            stmt.setString(count++, client.getAdresse());
-//            stmt.setString(count++, client.getPhoneNumber());
-//            stmt.setBoolean(count++, client.isProfessionnel());
-//            stmt.setLong(count++, client.getId());
-//
-//            int executed = stmt.executeUpdate();
-//            if (executed == 0) {
-//                throw new SQLException("Failed");
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
+    @Override
+    public void updateClient(Client client) {
+        final String query = "UPDATE " + tableName + " SET name = ?, adresse = ?, phoneNumber = ?, professionnel = ? WHERE id = ?";
+        try (final PreparedStatement stmt = connection.prepareStatement(query)) {
+            int count = 1;
+            stmt.setString(count++, client.getName());
+            stmt.setString(count++, client.getAdresse());
+            stmt.setString(count++, client.getPhoneNumber());
+            stmt.setBoolean(count++, client.isProfessionnel());
+            stmt.setLong(count++, client.getId());
+
+            int executed = stmt.executeUpdate();
+            if (executed == 0) {
+                throw new SQLException("Failed");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     private Client mapResultSetToClient (ResultSet rs) throws SQLException {
         return new Client(

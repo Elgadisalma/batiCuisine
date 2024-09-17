@@ -37,4 +37,17 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> getAllClients() {
         return clientRepository.getClients();
     }
+
+    @Override
+    public void updateClient(Client client, Long id) {
+        Optional<Client> existingClient = clientRepository.getClient(id);
+
+        if (existingClient.isPresent()) {
+            client.setId(id);
+            clientRepository.updateClient(client);
+            System.out.println("Client updated successfully");
+        } else {
+            System.out.println("Client not found.");
+        }
+    }
 }

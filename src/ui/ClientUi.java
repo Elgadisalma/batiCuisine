@@ -104,8 +104,40 @@ public class ClientUi {
         }
     }
 
+    private void updateClient() {
+        System.out.println("Modifier un client");
+        System.out.println("veuillez entrer l'id du client");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
 
-    private void updateClient() {}
+        System.out.println("Veullez entrer le nouveau nom");
+        String name = scanner.nextLine();
+
+        System.out.println("Veuillez entrer la nouvelle adresse'");
+        String adresse = scanner.nextLine();
+
+        System.out.println("Veuillez entrer le nouveau phonenUmber");
+        String phoneNumber = scanner.nextLine();
+
+        System.out.println("Le client est-il professionnel (1 : oui, 0 : non) ? ");
+        int estProf = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean professionnel;
+        if (estProf == 1) {
+            professionnel = true;
+        } else if (estProf == 0) {
+            professionnel = false;
+        } else {
+            System.out.println("Erreur: choix de disponibilité invalide.");
+            return;
+        }
+
+        Client client = new Client(name, adresse, phoneNumber, professionnel);
+        clientService.updateClient(client, id);
+
+        menu();
+    }
 
     private void deleteClient() {
         System.out.println("\nVeuillez entrer le id du client a supprimer");
