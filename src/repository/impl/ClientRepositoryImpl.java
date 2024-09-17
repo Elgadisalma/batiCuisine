@@ -59,25 +59,25 @@ public class ClientRepositoryImpl implements ClientRepository{
             throw new RuntimeException(e);
         }
     }
-//
-//    @Override
-//    public Optional<Client> getClient(Long id) {
-//        final String query = "SELECT * FROM " + tableName + " WHERE id = ?";
-//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-//            stmt.setLong(1, id);
-//            final ResultSet rs = stmt.executeQuery();
-//
-//            if (rs.next()) {
-//                Client client = mapResultSetToClient(rs);
-//                return Optional.of(client);
-//            } else {
-//                return Optional.empty();
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
+
+    @Override
+    public Optional<Client> getClient(Long id) {
+        final String query = "SELECT * FROM " + tableName + " WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setLong(1, id);
+            final ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Client client = mapResultSetToClient(rs);
+                return Optional.of(client);
+            } else {
+                return Optional.empty();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    @Override
 //    public List<Client> getClients() {
 //        final String query = "SELECT * FROM " + tableName;
@@ -114,16 +114,16 @@ public class ClientRepositoryImpl implements ClientRepository{
 //        }
 //
 //    }
-//
-//    private Client mapResultSetToClient (ResultSet rs) throws SQLException {
-//        return new Client(
-//                rs.getLong("id"),
-//                rs.getString("name"),
-//                rs.getString("adresse"),
-//                rs.getString("phoneNumber"),
-//                rs.getBoolean("professionnel")
-//        );
-//    }
+
+    private Client mapResultSetToClient (ResultSet rs) throws SQLException {
+        return new Client(
+                rs.getLong("id"),
+                rs.getString("name"),
+                rs.getString("adresse"),
+                rs.getString("phoneNumber"),
+                rs.getBoolean("professionnel")
+        );
+    }
 
 
 }

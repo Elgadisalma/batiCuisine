@@ -4,6 +4,7 @@ import entity.Client;
 import service.ClientService;
 import service.impl.ClientServiceImpl;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ClientUi {
@@ -76,7 +77,25 @@ public class ClientUi {
 
     private void showAllClients() {}
 
-    private void showOneClient() {}
+    private void showOneClient() {
+        System.out.println("Veuillez entrer l'id du client");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
+
+        try {
+            Optional<Client> optionalClient = clientService.getClientById(id);
+
+            if (optionalClient.isPresent()) {
+                Client client = optionalClient.get();
+                System.out.println(client);
+            } else {
+                System.out.println("Client non trouvé avec l'id " + id);
+            }
+        } catch (RuntimeException e) {
+            System.out.println("Erreur lors de la récupération du client : " + e.getMessage());
+        }
+    }
+
 
     private void updateClient() {}
 
