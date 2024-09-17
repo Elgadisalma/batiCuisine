@@ -80,6 +80,13 @@ public class ClientUi {
 
     private void updateClient() {}
 
-    private void deleteClient() {}
+    private void deleteClient() {
+        System.out.println("\nVeuillez entrer le id du client a supprimer");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
+
+        clientService.deleteClient(id);
+        menu();
+    }
 
 }

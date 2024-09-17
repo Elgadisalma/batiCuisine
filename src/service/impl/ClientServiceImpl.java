@@ -18,4 +18,10 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.addClient(client);
         System.out.println("Client created successfully");
     }
+
+    @Override
+    public void deleteClient(Long id) {
+        clientRepository.deleteClient(id);
+        System.out.println("Client deleted successfully");
+    }
 }

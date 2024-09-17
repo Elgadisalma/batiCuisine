@@ -46,19 +46,19 @@ public class ClientRepositoryImpl implements ClientRepository{
 
     }
 
-//    @Override
-//    public void deleteClient(Long id) {
-//        final String query = "DELETE FROM " + tableName + " WHERE id = ?";
-//        try (PreparedStatement statement = connection.prepareStatement(query)){
-//            statement.setLong(1, id);
-//            int executed = statement.executeUpdate();
-//            if (executed == 0) {
-//                throw new SQLException("Failed");
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @Override
+    public void deleteClient(Long id) {
+        final String query = "DELETE FROM " + tableName + " WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setLong(1, id);
+            int executed = statement.executeUpdate();
+            if (executed == 0) {
+                throw new SQLException("Failed");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 //
 //    @Override
 //    public Optional<Client> getClient(Long id) {
