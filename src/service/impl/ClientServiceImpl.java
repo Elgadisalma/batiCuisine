@@ -12,8 +12,9 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
 
-    public ClientServiceImpl() {
-        this.clientRepository = new ClientRepositoryImpl();
+    // Constructeur qui prend un ClientRepository
+    public ClientServiceImpl(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
     }
 
     @Override

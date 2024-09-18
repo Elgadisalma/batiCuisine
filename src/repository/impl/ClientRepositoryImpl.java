@@ -27,24 +27,27 @@ public class ClientRepositoryImpl implements ClientRepository{
     }
 
     @Override
-    public void addClient(Client client) {
-        final String query = "INSERT INTO " + tableName + " (name, adresse, phoneNumber, professionnel) VALUES (?,?,?,?)";
-        try(PreparedStatement statement = connection.prepareStatement(query)) {
+    public Long addClient(Client client) {
+        final String query = "INSERT INTO " + tableName + " (name, adresse, phoneNumber, professionnel) VALUES (?,?,?,?) RETURNING id";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             int count = 1;
             statement.setString(count++, client.getName());
             statement.setString(count++, client.getAdresse());
             statement.setString(count++, client.getPhoneNumber());
             statement.setBoolean(count++, client.isProfessionnel());
 
-            int executed = statement.executeUpdate();
-            if (executed == 0) {
-                throw new SQLException("Failed");
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong(1);
+                } else {
+                    throw new SQLException("Failed to insert client and retrieve ID");
+                }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error", e);
+            throw new RuntimeException("Error during client insertion", e);
         }
-
     }
+
 
     @Override
     public void deleteClient(Long id) {
