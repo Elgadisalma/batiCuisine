@@ -1,6 +1,7 @@
 package ui;
 
 import entity.Client;
+import repository.impl.ClientRepositoryImpl;
 import service.ClientService;
 import service.impl.ClientServiceImpl;
 
@@ -9,8 +10,12 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class ClientUi {
-    private final ClientService clientService = new ClientServiceImpl();
     private final Scanner scanner = new Scanner(System.in);
+    private final ClientService clientService;
+
+    public ClientUi(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     public void menu() {
         while (true) {
