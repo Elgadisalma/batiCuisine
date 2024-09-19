@@ -1,6 +1,7 @@
 package ui;
 
 import entity.Materiel;
+import entity.Personnel;
 import entity.TypeComposant;
 import service.ComposantService;
 
@@ -25,7 +26,6 @@ public class ComposantUi {
             switch(choix){
                 case 1:
                     ajoutMateriel();
-
                     while (true) {
                         System.out.println("Voulez-vous ajouter un autre matériel ? (y = 1) / (n = 0) :");
                         int choice = scanner.nextInt();
@@ -40,9 +40,22 @@ public class ComposantUi {
                     }
                 case 2:
                     ajoutPersonnel();
-                    break;
+
+
+                    while (true) {
+                        System.out.println("Voulez-vous ajouter une autre main d'oeuvre ? (y = 1) / (n = 0) :");
+                        int choice = scanner.nextInt();
+
+                        if (choice == 1) {
+                            ajoutPersonnel();
+                        } else if (choice == 0) {
+                            menu();
+                        } else {
+                            System.out.println("Choix non valide, veuillez entrer 1 ou 0.");
+                        }
+                    }
                 case 3:
-                    break;
+                    System.exit(0);
             }
         }
     }
@@ -74,7 +87,26 @@ public class ComposantUi {
     }
 
     public void ajoutPersonnel(){
+        System.out.println("Entrez le nom du personnel : ");
+        String nom = scanner.next();
 
+        System.out.println("Taux TVA du personnel:");
+        Double tauxTva = scanner.nextDouble();
+
+        System.out.println("Entrez le taux horaire de cette main-d'œuvre ");
+        Double tauxHoraire = scanner.nextDouble();
+
+        System.out.println("Entrez le nombre d'heures travaillées : ");
+        Double heuresTravail = scanner.nextDouble();
+
+        System.out.println(" Entrez le facteur de productivité (1,0 = standard, > 1,1 = haute qualité)");
+        Double productiviteOuvrier = scanner.nextDouble();
+
+        TypeComposant typeComposant = TypeComposant.personnel;
+
+        Personnel personnel = new Personnel(nom, typeComposant, tauxTva, tauxHoraire, heuresTravail, productiviteOuvrier);
+
+        composantService.savePersonnel(personnel);
     }
 
 

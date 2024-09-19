@@ -2,6 +2,7 @@ package repository.impl;
 
 import config.DatabaseConnection;
 import entity.Materiel;
+import entity.Personnel;
 import repository.ComposantRepository;
 
 import java.sql.Connection;
@@ -11,7 +12,6 @@ import java.util.Optional;
 
 public class ComposantRepositoryImpl implements ComposantRepository {
     private Connection connection;
-    private final String tableName = "materiel";
 
     public ComposantRepositoryImpl() {
         try {
@@ -22,8 +22,8 @@ public class ComposantRepositoryImpl implements ComposantRepository {
     }
 
     @Override
-    public void save(Materiel materiel) {
-        final String query = "INSERT INTO " + tableName + " (nom, type_composant, taux_tva, cout_unitaire, quantite, cout_transport, coefficient_qualite) VALUES (?, ?::typecomposant, ?, ?, ?, ?, ?)";
+    public void saveMateriel(Materiel materiel) {
+        final String query = "INSERT INTO " + materiel + " (nom, type_composant, taux_tva, cout_unitaire, quantite, cout_transport, coefficient_qualite) VALUES (?, ?::typecomposant, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             int count = 1;
@@ -52,4 +52,28 @@ public class ComposantRepositoryImpl implements ComposantRepository {
     public Optional<Materiel> findByName(int id) {
         return Optional.empty();
     }
+
+    @Override
+    public void savePersonnel(Personnel personnel) {
+        final String query = "INSERT INTO " + personnel + " (nom, type_composant, taux_tva, taux_horaire, heures_travail, productivite_ouvrier) VALUES(?,?::typecomposant,?,?,?,?)";
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            int count = 1;
+
+            statement.setString(count++,personnel.getNom());
+            statement.setString(count++,personnel.getTypeComposant().toString());
+            statement.setDouble(count++,personnel.getTauxTva());
+            statement.setDouble(count++,personnel.getTauxHoraire());
+            statement.setDouble(count++,personnel.getHeuresTravail());
+            statement.setDouble(count++,personnel.getProductiviteOuvrier());
+
+            int executed = statement.executeUpdate();
+            if (executed == 0) {
+                throw new RuntimeException("Erreur de sauvegarde du personnel");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de sauvegarde du personnel : " + e.getMessage());
+        }
+    }
+
+
 }
