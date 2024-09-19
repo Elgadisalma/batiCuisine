@@ -1,21 +1,21 @@
 package entity;
 
 public class Materiel extends Composant {
-    private double coutUnitaire;
-    private double quantite;
+    private Double coutUnitaire;
+    private Double quantite;
     private Double coutTransport;
     private Double coefficientQualite;
 
-    public Materiel(String nom, TypeComposant typeComposant, double tauxTva, double coutUnitaire, double quantite, Double coutTransport, Double coefficientQualite) {
-        super(nom, typeComposant, tauxTva);
+    public Materiel(String nom, TypeComposant typeComposant, double tauxTva, Long projectId, double coutUnitaire, double quantite, Double coutTransport, Double coefficientQualite) {
+        super(nom, typeComposant, tauxTva,projectId);
         this.coutUnitaire = coutUnitaire;
         this.quantite = quantite;
         this.coutTransport = coutTransport;
         this.coefficientQualite = coefficientQualite;
     }
 
-    public Materiel(Long id, String nom, TypeComposant typeComposant, double tauxTva, double coutUnitaire, double quantite, Double coutTransport, Double coefficientQualite) {
-        super(id, nom, typeComposant, tauxTva);
+    public Materiel(Long id, String nom, TypeComposant typeComposant,Long projectId, double tauxTva, double coutUnitaire, double quantite, Double coutTransport, Double coefficientQualite) {
+        super(id, nom, typeComposant, tauxTva, projectId);
         this.coutUnitaire = coutUnitaire;
         this.quantite = quantite;
         this.coutTransport = coutTransport;
@@ -61,6 +61,7 @@ public class Materiel extends Composant {
                 ", quantite=" + quantite +
                 ", coutTransport=" + coutTransport +
                 ", coefficientQualite=" + coefficientQualite +
+                ", projectId=" + getProjectId() +
                 '}';
     }
 }

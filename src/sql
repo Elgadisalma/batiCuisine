@@ -1,58 +1,58 @@
-** SQL pour la creation des tables dans la base de donnee "BatiCuisine"  **
+    ** SQL pour la creation des tables dans la base de donnee "BatiCuisine"  **
 
 
-CREATE TYPE EtatProjet AS ENUM ('en_cours', 'termine', 'annule');
-CREATE TYPE TypeComposant AS ENUM ('materiel', 'personnel');
+    CREATE TYPE EtatProjet AS ENUM ('en_cours', 'termine', 'annule');
+    CREATE TYPE TypeComposant AS ENUM ('materiel', 'personnel');
 
-CREATE TABLE clients (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    adresse VARCHAR(255) NOT NULL,
-    phoneNumber VARCHAR(15) NOT NULL,
-    professionnel BOOLEAN NOT NULL
-);
+    CREATE TABLE clients (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        adresse VARCHAR(255) NOT NULL,
+        phoneNumber VARCHAR(15) NOT NULL,
+        professionnel BOOLEAN NOT NULL
+    );
 
-CREATE TABLE projets (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    marge_beneficiaire DOUBLE PRECISION NOT NULL,
-    cout_total DOUBLE PRECISION,
-    etat_projet EtatProjet NOT NULL,
-    client_id INT,
-    CONSTRAINT fk_client
-    FOREIGN KEY (client_id) REFERENCES clients (id)
-);
+    CREATE TABLE projets (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        marge_beneficiaire DOUBLE PRECISION NOT NULL,
+        cout_total DOUBLE PRECISION,
+        etat_projet EtatProjet NOT NULL,
+        client_id INT,
+        CONSTRAINT fk_client
+        FOREIGN KEY (client_id) REFERENCES clients (id)
+    );
 
-CREATE TABLE devis (
-    id SERIAL PRIMARY KEY,
-    montant_estime DOUBLE PRECISION NOT NULL,
-    date_emission DATE NOT NULL,
-    date_validite DATE NOT NULL,
-    accepte BOOLEAN NOT NULL,
-    projet_id INT,
-    CONSTRAINT fk_projet FOREIGN KEY (projet_id) REFERENCES projets (id)
-);
+    CREATE TABLE devis (
+        id SERIAL PRIMARY KEY,
+        montant_estime DOUBLE PRECISION NOT NULL,
+        date_emission DATE NOT NULL,
+        date_validite DATE NOT NULL,
+        accepte BOOLEAN NOT NULL,
+        projet_id INT,
+        CONSTRAINT fk_projet FOREIGN KEY (projet_id) REFERENCES projets (id)
+    );
 
-CREATE TABLE composant (
-    id SERIAL PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    type_composant TypeComposant NOT NULL,
-    taux_tva DOUBLE PRECISION NOT NULL,
-    projet_id INT,
-    CONSTRAINT fk_projet FOREIGN KEY (projet_id) REFERENCES projets (id)
-);
+    CREATE TABLE composant (
+        id SERIAL PRIMARY KEY,
+        nom VARCHAR(255) NOT NULL,
+        type_composant TypeComposant NOT NULL,
+        taux_tva DOUBLE PRECISION NOT NULL,
+        projet_id INT,
+        CONSTRAINT fk_projet FOREIGN KEY (projet_id) REFERENCES projets (id)
+    );
 
-CREATE TABLE materiel (
-    composant_id INT NOT NULL,
-    cout_unitaire DOUBLE PRECISION NOT NULL,
-    quantite DOUBLE PRECISION NOT NULL,
-    cout_transport DOUBLE PRECISION,
-    coefficient_qualite DOUBLE PRECISION
-)INHERITS (composant);
+    CREATE TABLE materiel (
+        composant_id INT NOT NULL,
+        cout_unitaire DOUBLE PRECISION NOT NULL,
+        quantite DOUBLE PRECISION NOT NULL,
+        cout_transport DOUBLE PRECISION,
+        coefficient_qualite DOUBLE PRECISION
+    )INHERITS (composant);
 
-CREATE TABLE personnel (
-    composant_id INT NOT NULL,
-    taux_horaire DOUBLE PRECISION NOT NULL,
-    heures_travail DOUBLE PRECISION NOT NULL,
-    productivite_ouvrier DOUBLE PRECISION
-)INHERITS (composant);
+    CREATE TABLE personnel (
+        composant_id INT NOT NULL,
+        taux_horaire DOUBLE PRECISION NOT NULL,
+        heures_travail DOUBLE PRECISION NOT NULL,
+        productivite_ouvrier DOUBLE PRECISION
+    )INHERITS (composant);

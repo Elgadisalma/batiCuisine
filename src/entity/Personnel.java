@@ -5,15 +5,15 @@ public class Personnel extends Composant {
     private double heuresTravail;
     private Double productiviteOuvrier;
 
-    public Personnel(String nom, TypeComposant typeComposant, double tauxTva, double tauxHoraire, double heuresTravail, Double productiviteOuvrier) {
-        super(nom, typeComposant, tauxTva);
+    public Personnel(String nom, TypeComposant typeComposant, double tauxTva, Long projectId, double tauxHoraire, double heuresTravail, Double productiviteOuvrier) {
+        super(nom, typeComposant, tauxTva,projectId);
         this.tauxHoraire = tauxHoraire;
         this.heuresTravail = heuresTravail;
         this.productiviteOuvrier = productiviteOuvrier;
     }
 
-    public Personnel(Long id, String nom, TypeComposant typeComposant, double tauxTva, double tauxHoraire, double heuresTravail, Double productiviteOuvrier) {
-        super(id, nom, typeComposant, tauxTva);
+    public Personnel(Long id, String nom, TypeComposant typeComposant, double tauxTva, Long projectId, double tauxHoraire, double heuresTravail, Double productiviteOuvrier) {
+        super(id, nom, typeComposant, tauxTva, projectId);
         this.tauxHoraire = tauxHoraire;
         this.heuresTravail = heuresTravail;
         this.productiviteOuvrier = productiviteOuvrier;
@@ -50,6 +50,7 @@ public class Personnel extends Composant {
                 ", tauxHoraire=" + tauxHoraire +
                 ", heuresTravail=" + heuresTravail +
                 ", productiviteOuvrier=" + productiviteOuvrier +
+                ", projectId=" + getProjectId() +
                 '}';
     }
 }

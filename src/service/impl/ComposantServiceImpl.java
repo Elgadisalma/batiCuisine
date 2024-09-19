@@ -5,6 +5,8 @@ import entity.Personnel;
 import repository.ComposantRepository;
 import service.ComposantService;
 
+import java.util.Optional;
+
 public class ComposantServiceImpl implements ComposantService {
     private ComposantRepository composantRepository;
     public ComposantServiceImpl(ComposantRepository composantRepository) {
@@ -21,5 +23,10 @@ public class ComposantServiceImpl implements ComposantService {
     public void savePersonnel(Personnel personnel) {
         composantRepository.savePersonnel(personnel);
         System.out.println("Main-d'œuvre ajoutée avec succès !");
+    }
+
+    @Override
+    public Optional<Boolean> checkProjectExists(Long projectId) {
+        return composantRepository.checkProjectExists(projectId);
     }
 }

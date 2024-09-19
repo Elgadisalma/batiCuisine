@@ -61,6 +61,14 @@ public class ComposantUi {
     }
 
     public void ajoutMateriel() {
+        System.out.println("Entrez l'ID du projet : ");
+        Long projectId = scanner.nextLong();
+
+        if (!composantService.checkProjectExists(projectId).orElse(false)) {
+            System.out.println("Le projet n'existe pas");
+            return;
+        }
+
         System.out.println("Entrez le nom du matériau : ");
         String nom = scanner.next();
 
@@ -81,12 +89,22 @@ public class ComposantUi {
 
         TypeComposant typeComposant = TypeComposant.materiel;
 
-        Materiel materiel = new Materiel(nom, typeComposant, tauxTva, coutUnitaire, quantite, coutTransport, coefficientQualite);
+        Materiel materiel = new Materiel(nom, typeComposant, tauxTva, projectId, coutUnitaire, quantite, coutTransport, coefficientQualite);
 
         composantService.saveMateriel(materiel);
     }
 
-    public void ajoutPersonnel(){
+
+    public void ajoutPersonnel() {
+        System.out.println("Entrez l'ID du projet : ");
+        Long projectId = scanner.nextLong();  // Make sure this is a Long
+
+        // Check if project exists
+        if (!composantService.checkProjectExists(projectId).orElse(false)) {
+            System.out.println("Le projet n'existe pas");
+            return;
+        }
+
         System.out.println("Entrez le nom du personnel : ");
         String nom = scanner.next();
 
@@ -99,15 +117,16 @@ public class ComposantUi {
         System.out.println("Entrez le nombre d'heures travaillées : ");
         Double heuresTravail = scanner.nextDouble();
 
-        System.out.println(" Entrez le facteur de productivité (1,0 = standard, > 1,1 = haute qualité)");
+        System.out.println("Entrez le facteur de productivité (1,0 = standard, > 1,1 = haute qualité)");
         Double productiviteOuvrier = scanner.nextDouble();
 
         TypeComposant typeComposant = TypeComposant.personnel;
 
-        Personnel personnel = new Personnel(nom, typeComposant, tauxTva, tauxHoraire, heuresTravail, productiviteOuvrier);
+        Personnel personnel = new Personnel(nom, typeComposant, tauxTva, projectId, tauxHoraire, heuresTravail, productiviteOuvrier);
 
         composantService.savePersonnel(personnel);
     }
+
 
 
 }

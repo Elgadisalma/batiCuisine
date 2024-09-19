@@ -5,18 +5,21 @@ public class Composant {
     private String nom;
     private TypeComposant typeComposant;
     private double tauxTva;
+    private Long projectId;
 
-    public Composant(String nom, TypeComposant typeComposant, double tauxTva) {
+    public Composant(String nom, TypeComposant typeComposant, double tauxTva, Long projectId) {
         this.nom = nom;
         this.typeComposant = typeComposant;
         this.tauxTva = tauxTva;
+        this.projectId = projectId;
     }
 
-    public Composant(Long id, String nom, TypeComposant typeComposant, double tauxTva) {
+    public Composant(Long id, String nom, TypeComposant typeComposant, double tauxTva, Long projectId) {
         this.id = id;
         this.nom = nom;
         this.typeComposant = typeComposant;
         this.tauxTva = tauxTva;
+        this.projectId = projectId;
     }
 
     public Long getId() {
@@ -47,6 +50,13 @@ public class Composant {
         this.tauxTva = tauxTva;
     }
 
+    public Long getProjectId() {
+        return projectId;
+    }
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
     @Override
     public String toString() {
         return "Composant{" +
@@ -54,6 +64,7 @@ public class Composant {
                 ", nom='" + nom + '\'' +
                 ", typeComposant=" + typeComposant +
                 ", tauxTva=" + tauxTva +
+                ", projectId=" + projectId +
                 '}';
     }
 }

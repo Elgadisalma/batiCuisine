@@ -7,6 +7,7 @@ import repository.ComposantRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class ComposantRepositoryImpl implements ComposantRepository {
 
     @Override
     public void saveMateriel(Materiel materiel) {
-        final String query = "INSERT INTO materiel (nom, type_composant, taux_tva, cout_unitaire, quantite, cout_transport, coefficient_qualite) VALUES (?, ?::typecomposant, ?, ?, ?, ?, ?)";
+        final String query = "INSERT INTO materiel (nom, type_composant, taux_tva, projet_id ,cout_unitaire, quantite, cout_transport, coefficient_qualite) VALUES (?, ?::typecomposant, ?, ?, ?, ?, ?,?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             int count = 1;
@@ -31,6 +32,7 @@ public class ComposantRepositoryImpl implements ComposantRepository {
             statement.setString(count++, materiel.getNom());
             statement.setString(count++, materiel.getTypeComposant().toString());
             statement.setDouble(count++, materiel.getTauxTva());
+            statement.setLong(count++, materiel.getProjectId());
             statement.setDouble(count++, materiel.getCoutUnitaire());
             statement.setDouble(count++, materiel.getQuantite());
             statement.setDouble(count++, materiel.getCoutTransport());
@@ -55,13 +57,14 @@ public class ComposantRepositoryImpl implements ComposantRepository {
 
     @Override
     public void savePersonnel(Personnel personnel) {
-        final String query = "INSERT INTO personnel (nom, type_composant, taux_tva, taux_horaire, heures_travail, productivite_ouvrier) VALUES(?,?::typecomposant,?,?,?,?)";
+        final String query = "INSERT INTO personnel (nom, type_composant, taux_tva, projet_id, taux_horaire, heures_travail, productivite_ouvrier) VALUES(?,?::typecomposant,?,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(query)) {
             int count = 1;
 
             statement.setString(count++,personnel.getNom());
             statement.setString(count++,personnel.getTypeComposant().toString());
             statement.setDouble(count++,personnel.getTauxTva());
+            statement.setLong(count++, personnel.getProjectId());
             statement.setDouble(count++,personnel.getTauxHoraire());
             statement.setDouble(count++,personnel.getHeuresTravail());
             statement.setDouble(count++,personnel.getProductiviteOuvrier());
@@ -73,6 +76,22 @@ public class ComposantRepositoryImpl implements ComposantRepository {
         } catch (SQLException e) {
             System.out.println("Erreur de sauvegarde du personnel : " + e.getMessage());
         }
+    }
+
+
+    @Override
+    public Optional<Boolean> checkProjectExists(Long projectId) {
+        final String query = "SELECT EXISTS (SELECT 1 FROM projets WHERE id = ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, projectId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return Optional.of(resultSet.getBoolean(1));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification de l'existence du projet : " + e.getMessage());
+        }
+        return Optional.empty();
     }
 
 
