@@ -1,5 +1,6 @@
 ** SQL pour la creation des tables dans la base de donnee "BatiCuisine"  **
 
+
 CREATE TYPE EtatProjet AS ENUM ('en_cours', 'termine', 'annule');
 CREATE TYPE TypeComposant AS ENUM ('materiel', 'personnel');
 
@@ -36,7 +37,9 @@ CREATE TABLE composant (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     type_composant TypeComposant NOT NULL,
-    taux_tva DOUBLE PRECISION NOT NULL
+    taux_tva DOUBLE PRECISION NOT NULL,
+    projet_id INT,
+    CONSTRAINT fk_projet FOREIGN KEY (projet_id) REFERENCES projets (id)
 );
 
 CREATE TABLE materiel (
