@@ -26,7 +26,8 @@ public class ProjectUi {
             System.out.println("\n1. Create Projet");
             System.out.println("2. Show one Project");
             System.out.println("3. Show all Projects");
-            System.out.println("4. Exit");
+            System.out.println("4. Edit Project");
+            System.out.println("5. Exit");
 
             int choix = scanner.nextInt();
             scanner.nextLine();
@@ -42,7 +43,10 @@ public class ProjectUi {
                     displayProjects();
                     break;
                 case 4:
+                    editProject();
                     break;
+                case 5:
+                    System.exit(0);
                 default:
                     System.out.println("Invalid option");
             }
@@ -116,5 +120,23 @@ public class ProjectUi {
 
         projectService.createProject(project, client);
     }
+
+
+    public void editProject() {
+        System.out.println("Veuillez entrer l'ID du projet à modifier:");
+        Long projectId = scanner.nextLong();
+        scanner.nextLine();
+
+        System.out.println("Veuillez entrer la nouvelle marge bénéficiaire:");
+        Double margeBeneficiaire = scanner.nextDouble();
+
+        System.out.println("Veuillez entrer le nouveau coût total:");
+        Double coutTotal = scanner.nextDouble();
+
+        Project project = new Project(projectId, margeBeneficiaire, coutTotal);
+
+        projectService.updateProject(project);
+    }
+
 
 }

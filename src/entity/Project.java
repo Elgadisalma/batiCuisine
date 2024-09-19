@@ -25,6 +25,12 @@ public class Project {
         this.clientId = clientId;
     }
 
+    public Project(Long id, Double margeBeneficiaire, Double coutTotal) {
+        this.id = id;
+        this.margeBeneficiaire = margeBeneficiaire;
+        this.coutTotal = coutTotal;
+    }
+
     public Long getId() {
         return id;
     }

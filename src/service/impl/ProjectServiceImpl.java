@@ -32,6 +32,12 @@ public class ProjectServiceImpl implements ProjectService {
         System.out.println("Projet ajouté avec succès.");
     }
 
+    @Override
+    public void updateProject(Project project) {
+        projectRepository.editProject(project);
+        System.out.println("updated successfully");
+    }
+
     /**
      * @return
      */

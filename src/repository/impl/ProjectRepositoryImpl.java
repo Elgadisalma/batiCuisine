@@ -1,11 +1,13 @@
 package repository.impl;
 
 import config.DatabaseConnection;
+import entity.Client;
 import entity.Project;
 import repository.ProjectRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -48,11 +50,43 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
+    @Override
+    public void editProject(Project project) {
+        final String query = "UPDATE " + tableName + " SET marge_beneficiaire = ?, cout_total = ? WHERE id = ?";
+        try (final PreparedStatement stmt = connection.prepareStatement(query)) {
+            int count = 1;
+            stmt.setDouble(count++, project.getMargeBeneficiaire());
+            stmt.setDouble(count++, project.getCoutTotal());
+
+            stmt.setLong(count++, project.getId());
+
+            int executed = stmt.executeUpdate();
+            if (executed == 0) {
+                throw new SQLException("La mise à jour a échoué, aucun projet trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la mise à jour du projet : " + e.getMessage(), e);
+        }
+    }
+
 
 
     @Override
     public Optional<Project> getProject(Long id) {
-        return Optional.empty();
+        final String query = "SELECT * FROM " + tableName + " WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setLong(1, id);
+            final ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Client client = mapResultSetToProject(rs);
+                return Optional.of(project);
+            } else {
+                return Optional.empty();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
