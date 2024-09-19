@@ -1,8 +1,11 @@
 import repository.impl.ClientRepositoryImpl;
+import repository.impl.ComposantRepositoryImpl;
 import repository.impl.ProjectRepositoryImpl;
 import service.impl.ClientServiceImpl;
+import service.impl.ComposantServiceImpl;
 import service.impl.ProjectServiceImpl;
 import ui.ClientUi;
+import ui.ComposantUi;
 import ui.ProjectUi;
 
 public class Main {
@@ -20,6 +23,12 @@ public class Main {
         ProjectServiceImpl projectService = new ProjectServiceImpl(projectRepository, clientRepository);
 
         ProjectUi projectUi = new ProjectUi(clientService, projectService);
-        projectUi.menu();
+//        projectUi.menu();
+
+//        composant
+        ComposantRepositoryImpl composantRepository = new ComposantRepositoryImpl();
+        ComposantServiceImpl composantService = new ComposantServiceImpl(composantRepository);
+        ComposantUi composantUi = new ComposantUi(composantService);
+        composantUi.menu();
     }
 }
