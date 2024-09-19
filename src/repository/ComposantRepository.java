@@ -4,7 +4,7 @@ import entity.Materiel;
 
 import java.util.Optional;
 
-public interface MaterielRepository {
+public interface ComposantRepository {
     void save(Materiel materiel);
     Optional<Materiel> findByName(int id);
 }

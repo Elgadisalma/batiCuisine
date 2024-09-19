@@ -2,19 +2,18 @@ package repository.impl;
 
 import config.DatabaseConnection;
 import entity.Materiel;
-import repository.MaterielRepository;
+import repository.ComposantRepository;
 
-import javax.swing.text.TabableView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class MaterielRepositoryImpl implements MaterielRepository {
+public class ComposantRepositoryImpl implements ComposantRepository {
     private Connection connection;
     private final String tableName = "materiel";
 
-    public MaterielRepositoryImpl() {
+    public ComposantRepositoryImpl() {
         try {
             this.connection = DatabaseConnection.getInstance().getConnection();
         } catch (SQLException e) {

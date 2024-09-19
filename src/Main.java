@@ -1,9 +1,8 @@
 import repository.impl.ClientRepositoryImpl;
-import repository.impl.MaterielRepositoryImpl;
+import repository.impl.ComposantRepositoryImpl;
 import repository.impl.ProjectRepositoryImpl;
-import service.MaterielService;
 import service.impl.ClientServiceImpl;
-import service.impl.MaterielServiceImpl;
+import service.impl.ComposantServiceImpl;
 import service.impl.ProjectServiceImpl;
 import ui.ClientUi;
 import ui.ComposantUi;
@@ -27,9 +26,9 @@ public class Main {
 //        projectUi.menu();
 
 //        composant
-        MaterielRepositoryImpl materielRepository = new MaterielRepositoryImpl();
-        MaterielServiceImpl materielService = new MaterielServiceImpl(materielRepository);
-        ComposantUi composantUi = new ComposantUi(materielService);
+        ComposantRepositoryImpl composantRepository = new ComposantRepositoryImpl();
+        ComposantServiceImpl composantService = new ComposantServiceImpl(composantRepository);
+        ComposantUi composantUi = new ComposantUi(composantService);
         composantUi.menu();
     }
 }

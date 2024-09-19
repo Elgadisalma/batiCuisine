@@ -2,6 +2,6 @@ package service;
 
 import entity.Materiel;
 
-public interface MaterielService {
+public interface ComposantService {
     void saveMateriel(Materiel materiel);
 }

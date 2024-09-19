@@ -2,16 +2,16 @@ package ui;
 
 import entity.Materiel;
 import entity.TypeComposant;
-import service.MaterielService;
+import service.ComposantService;
 
 import java.util.Scanner;
 
 public class ComposantUi {
     Scanner scanner = new Scanner(System.in);
-    private final MaterielService materielService;
+    private final ComposantService composantService;
 
-    public ComposantUi(MaterielService materielService) {
-        this.materielService = materielService;
+    public ComposantUi(ComposantService composantService) {
+        this.composantService = composantService;
     }
     public void menu(){
         System.out.println("Menu composant");
@@ -64,13 +64,13 @@ public class ComposantUi {
         Double coutTransport = scanner.nextDouble();
 
         System.out.println("Entrez le coefficient de qualité du matériau (1.0 = standard, > 1.1 = haute qualité)");
-        Double coefficientQualite = scanner.nextDouble();  
+        Double coefficientQualite = scanner.nextDouble();
 
         TypeComposant typeComposant = TypeComposant.materiel;
 
         Materiel materiel = new Materiel(nom, typeComposant, tauxTva, coutUnitaire, quantite, coutTransport, coefficientQualite);
 
-        materielService.saveMateriel(materiel);
+        composantService.saveMateriel(materiel);
     }
 
     public void ajoutPersonnel(){
