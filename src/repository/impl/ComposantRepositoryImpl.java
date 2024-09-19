@@ -23,7 +23,7 @@ public class ComposantRepositoryImpl implements ComposantRepository {
 
     @Override
     public void saveMateriel(Materiel materiel) {
-        final String query = "INSERT INTO " + materiel + " (nom, type_composant, taux_tva, cout_unitaire, quantite, cout_transport, coefficient_qualite) VALUES (?, ?::typecomposant, ?, ?, ?, ?, ?)";
+        final String query = "INSERT INTO materiel (nom, type_composant, taux_tva, cout_unitaire, quantite, cout_transport, coefficient_qualite) VALUES (?, ?::typecomposant, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             int count = 1;
@@ -55,7 +55,7 @@ public class ComposantRepositoryImpl implements ComposantRepository {
 
     @Override
     public void savePersonnel(Personnel personnel) {
-        final String query = "INSERT INTO " + personnel + " (nom, type_composant, taux_tva, taux_horaire, heures_travail, productivite_ouvrier) VALUES(?,?::typecomposant,?,?,?,?)";
+        final String query = "INSERT INTO personnel (nom, type_composant, taux_tva, taux_horaire, heures_travail, productivite_ouvrier) VALUES(?,?::typecomposant,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(query)) {
             int count = 1;
 
