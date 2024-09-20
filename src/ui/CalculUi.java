@@ -1,4 +1,5 @@
 package ui;
+import entity.Composant;
 import entity.Project;
 import service.ComposantService;
 import service.ProjectService;
@@ -11,10 +12,12 @@ public class CalculUi {
     Scanner scanner = new Scanner(System.in);
     private final ProjectService projectService;
     private final ComposantService composantService;
+    private final ProjectUi projectUi;
 
-    public CalculUi(ProjectService projectService, ComposantService composantService) {
+    public CalculUi(ProjectService projectService, ComposantService composantService, ProjectUi projectUi) {
         this.projectService = projectService;
         this.composantService = composantService;
+        this.projectUi = projectUi;
     }
 
     public void menu() {
@@ -46,6 +49,14 @@ public class CalculUi {
         Long projectId = scanner.nextLong();
         scanner.nextLine();
 
+        System.out.println("Voulez vous modifier la marge beneficiaire de ce projet (1- Oui , 0- Non)");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 1){
+            projectUi.editProject();
+        }
+
         Optional<Project> project = projectService.getProject((long) projectId);
 
         if (project.isPresent()) {
@@ -55,10 +66,13 @@ public class CalculUi {
             Double totalPersonnels = totalPersonnel.get("totalPersonnelCout");
 
             Double totalComposant = totalMateriels + totalPersonnels;
-            System.out.println("Total des composants : " + totalComposant + "$");
+            System.out.println("\nTotal des composants : " + totalComposant + "$\n");
+
+            Double coutTotal = totalComposant + project.get().getMargeBeneficiaire();
+            System.out.println("Total des couts : " + coutTotal + "$\n");
 
         } else {
-            System.out.println("hh");
+            System.out.println("Project not found");
         }
 
 

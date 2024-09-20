@@ -38,7 +38,7 @@ public class Main {
 
 
 //        Calcule
-        CalculUi calculUi = new CalculUi(projectService, composantService);
+        CalculUi calculUi = new CalculUi(projectService, composantService, projectUi);
         calculUi.menu();
     }
 }
