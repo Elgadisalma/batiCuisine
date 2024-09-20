@@ -6,25 +6,28 @@ import service.impl.ComposantServiceImpl;
 import service.impl.ProjectServiceImpl;
 import ui.ClientUi;
 import ui.ComposantUi;
-import ui.DevisUi;
+import ui.CalculUi;
 import ui.ProjectUi;
 
 public class Main {
     public static void main(String[] args) {
+
+
 //        clients
         ClientRepositoryImpl clientRepository = new ClientRepositoryImpl();
         ClientServiceImpl clientService = new ClientServiceImpl(clientRepository);
-
         ClientUi clientUi = new ClientUi(clientService);
 //        clientUi.menu();
+
 
 
 //        projects
         ProjectRepositoryImpl projectRepository = new ProjectRepositoryImpl();
         ProjectServiceImpl projectService = new ProjectServiceImpl(projectRepository, clientRepository);
-
         ProjectUi projectUi = new ProjectUi(clientService, projectService);
 //        projectUi.menu();
+
+
 
 //        composant
         ComposantRepositoryImpl composantRepository = new ComposantRepositoryImpl();
@@ -32,8 +35,10 @@ public class Main {
         ComposantUi composantUi = new ComposantUi(composantService);
 //        composantUi.menu();
 
-//        devis
-        DevisUi devisUi = new DevisUi(projectService, composantService);
-        devisUi.menu();
+
+
+//        Calcule
+        CalculUi calculUi = new CalculUi(projectService, composantService);
+        calculUi.menu();
     }
 }

@@ -1,6 +1,5 @@
 package repository;
 
-import entity.Composant;
 import entity.Materiel;
 import entity.Personnel;
 
@@ -14,4 +13,6 @@ public interface ComposantRepository {
     void savePersonnel(Personnel personnel);
     Optional<Boolean> checkProjectExists(Long projectId);
     Map<String,Double> getAllTaxes(Long projectId);
+    List<Materiel> getAllMateriels(Long projectId);
+    List<Personnel> getAllPersonnels(Long projectId);
 }

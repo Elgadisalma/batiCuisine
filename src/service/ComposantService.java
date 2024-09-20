@@ -13,4 +13,6 @@ public interface ComposantService {
     void savePersonnel(Personnel personnel);
     Optional<Boolean> checkProjectExists(Long projectId);
     Map<String,Double> displayTaxes(Long projectId);
+    Map<String, Double> getAllMateriels(Long projectId);
+    Map<String, Double> getAllPersonnels(Long projectId);
 }
