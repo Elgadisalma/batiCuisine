@@ -1,10 +1,13 @@
 package service.impl;
 
+import entity.Composant;
 import entity.Materiel;
 import entity.Personnel;
 import repository.ComposantRepository;
 import service.ComposantService;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ComposantServiceImpl implements ComposantService {
@@ -29,4 +32,11 @@ public class ComposantServiceImpl implements ComposantService {
     public Optional<Boolean> checkProjectExists(Long projectId) {
         return composantRepository.checkProjectExists(projectId);
     }
+
+    @Override
+    public Map<String, Double> displayTaxes(Long projectId) {
+        return composantRepository.getAllTaxes(projectId);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package repository.impl;
 
 import config.DatabaseConnection;
+import entity.Composant;
 import entity.Materiel;
 import entity.Personnel;
 import repository.ComposantRepository;
@@ -9,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ComposantRepositoryImpl implements ComposantRepository {
@@ -93,6 +97,29 @@ public class ComposantRepositoryImpl implements ComposantRepository {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Map<String, Double> getAllTaxes(Long projectId) {
+        final String query = "SELECT nom, taux_tva FROM composant WHERE projet_id = ?";
+        Map<String, Double> taxes = new HashMap<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setLong(1, projectId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String composantName = rs.getString("nom");
+                Double tauxTVA = rs.getDouble("taux_tva");
+
+                taxes.put(composantName, tauxTVA);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de la récupération des taxes : " + e.getMessage(), e);
+        }
+
+        return taxes;
+    }
+
 
 
 }
