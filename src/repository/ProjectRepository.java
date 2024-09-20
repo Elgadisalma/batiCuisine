@@ -9,5 +9,4 @@ public interface ProjectRepository {
     void saveProject(Project project);
     void editProject(Project project);
     Optional<Project> getProject(Long id);
-    List<Project> getAllProjects();
 }

@@ -38,13 +38,6 @@ public class ProjectServiceImpl implements ProjectService {
         System.out.println("updated successfully");
     }
 
-    /**
-     * @return
-     */
-    @Override
-    public List<Project> getProjects() {
-        return List.of();
-    }
 
     /**
      * @param id
@@ -52,6 +45,6 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public Optional<Project> getProject(Long id) {
-        return Optional.empty();
+        return projectRepository.getProject(id);
     }
 }

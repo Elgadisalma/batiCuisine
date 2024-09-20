@@ -2,6 +2,7 @@ package repository.impl;
 
 import config.DatabaseConnection;
 import entity.Client;
+import entity.EtatProjet;
 import entity.Project;
 import repository.ProjectRepository;
 
@@ -69,8 +70,6 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
-
-
     @Override
     public Optional<Project> getProject(Long id) {
         final String query = "SELECT * FROM " + tableName + " WHERE id = ?";
@@ -79,7 +78,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
             final ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Client client = mapResultSetToProject(rs);
+                Project project = mapResultSetToProject(rs);
                 return Optional.of(project);
             } else {
                 return Optional.empty();
@@ -89,9 +88,16 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         }
     }
 
-
-    @Override
-    public List<Project> getAllProjects() {
-        return List.of();
+    private Project mapResultSetToProject(ResultSet rs) throws SQLException {
+        return new Project(
+                rs.getLong("id"),
+                rs.getString("name"),
+                rs.getDouble("marge_beneficiaire"),
+                rs.getDouble("cout_total"),
+                EtatProjet.valueOf(rs.getString("etat_projet")),
+                rs.getLong("client_id")
+        );
     }
+
+
 }

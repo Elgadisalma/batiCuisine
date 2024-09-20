@@ -25,9 +25,8 @@ public class ProjectUi {
         while (true) {
             System.out.println("\n1. Create Projet");
             System.out.println("2. Show one Project");
-            System.out.println("3. Show all Projects");
-            System.out.println("4. Edit Project");
-            System.out.println("5. Exit");
+            System.out.println("3. Edit Project");
+            System.out.println("4. Exit");
 
             int choix = scanner.nextInt();
             scanner.nextLine();
@@ -40,12 +39,9 @@ public class ProjectUi {
                     showOneProject();
                     break;
                 case 3:
-                    displayProjects();
-                    break;
-                case 4:
                     editProject();
                     break;
-                case 5:
+                case 4:
                     System.exit(0);
                 default:
                     System.out.println("Invalid option");
@@ -54,9 +50,19 @@ public class ProjectUi {
     }
 
 
-    private void showOneProject() {}
-    private void displayProjects() {}
+    private void showOneProject() {
+        System.out.println("Veuillez entrer l'ID du projet à modifier:");
+        Long projectId = scanner.nextLong();
+        scanner.nextLine();
 
+        Optional<Project> project = projectService.getProject(projectId);
+        if (project.isPresent()) {
+            Project proj = project.get();
+            System.out.println(proj);
+        } else {
+            System.out.println("Projet n'existe pas");
+        }
+    }
 
     private void createProject() {
         System.out.println("Création d'un projet:");
