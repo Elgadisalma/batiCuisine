@@ -53,20 +53,19 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public void editProject(Project project) {
-        final String query = "UPDATE " + tableName + " SET marge_beneficiaire = ?, cout_total = ? WHERE id = ?";
+        final String query = "UPDATE " + tableName + " SET marge_beneficiaire = ? WHERE id = ?";
         try (final PreparedStatement stmt = connection.prepareStatement(query)) {
             int count = 1;
             stmt.setDouble(count++, project.getMargeBeneficiaire());
-            stmt.setDouble(count++, project.getCoutTotal());
 
             stmt.setLong(count++, project.getId());
 
             int executed = stmt.executeUpdate();
             if (executed == 0) {
-                throw new SQLException("La mise à jour a échoué, aucun projet trouvé avec cet ID.");
+                throw new SQLException("aucun projet trouve avec cet ID.");
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erreur lors de la mise à jour du projet : " + e.getMessage(), e);
+            throw new RuntimeException("Erreur :" + e.getMessage(), e);
         }
     }
 

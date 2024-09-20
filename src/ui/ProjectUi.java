@@ -136,10 +136,7 @@ public class ProjectUi {
         System.out.println("Veuillez entrer la nouvelle marge bénéficiaire:");
         Double margeBeneficiaire = scanner.nextDouble();
 
-        System.out.println("Veuillez entrer le nouveau coût total:");
-        Double coutTotal = scanner.nextDouble();
-
-        Project project = new Project(projectId, margeBeneficiaire, coutTotal);
+        Project project = new Project(projectId, margeBeneficiaire);
 
         projectService.updateProject(project);
     }
