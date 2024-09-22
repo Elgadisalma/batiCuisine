@@ -133,13 +133,23 @@ public class ProjectUi {
         Long projectId = scanner.nextLong();
         scanner.nextLine();
 
-        System.out.println("Veuillez entrer la nouvelle marge bénéficiaire:");
-        Double margeBeneficiaire = scanner.nextDouble();
+        Optional<Project> projectOptional = projectService.getProject(projectId);
 
-        Project project = new Project(projectId, margeBeneficiaire);
+        if (projectOptional.isPresent()) {
+            Project project = projectOptional.get();
 
-        projectService.updateProject(project);
+            System.out.println("Veuillez entrer la nouvelle marge bénéficiaire:");
+            Double margeBeneficiaire = scanner.nextDouble();
+
+            project.setMargeBeneficiaire(margeBeneficiaire);
+
+            projectService.updateProject(project);
+            System.out.println("Le projet a été mis à jour avec succès.");
+        } else {
+            System.out.println("Projet non trouvé.");
+        }
     }
+
 
 
 }

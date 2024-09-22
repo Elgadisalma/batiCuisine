@@ -4,7 +4,7 @@ public class Composant {
     private Long id;
     private String nom;
     private TypeComposant typeComposant;
-    private double tauxTva;
+    private Double tauxTva;
     private Long projectId;
 
     public Composant(String nom, TypeComposant typeComposant, double tauxTva, Long projectId) {

@@ -1,16 +1,17 @@
 package entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Devis {
     private Long id;
     private double montantEstime;
-    private Date dateEmission;
-    private Date dateValidite;
+    private LocalDate dateEmission;
+    private LocalDate dateValidite;
     private boolean accepte;
     private Long projetId;
 
-    public Devis(double montantEstime, Date dateEmission, Date dateValidite, boolean accepte, Long projetId) {
+    public Devis(double montantEstime, LocalDate dateEmission, LocalDate dateValidite, boolean accepte, Long projetId) {
         this.montantEstime = montantEstime;
         this.dateEmission = dateEmission;
         this.dateValidite = dateValidite;
@@ -18,7 +19,7 @@ public class Devis {
         this.projetId = projetId;
     }
 
-    public Devis(Long id, double montantEstime, Date dateEmission, Date dateValidite, boolean accepte, Long projetId) {
+    public Devis(Long id, double montantEstime, LocalDate dateEmission, LocalDate dateValidite, boolean accepte, Long projetId) {
         this.id = id;
         this.montantEstime = montantEstime;
         this.dateEmission = dateEmission;
@@ -41,17 +42,17 @@ public class Devis {
         this.montantEstime = montantEstime;
     }
 
-    public Date getDateEmission() {
+    public LocalDate getDateEmission() {
         return dateEmission;
     }
-    public void setDateEmission(Date dateEmission) {
+    public void setDateEmission(LocalDate dateEmission) {
         this.dateEmission = dateEmission;
     }
 
-    public Date getDateValidite() {
+    public LocalDate getDateValidite() {
         return dateValidite;
     }
-    public void setDateValidite(Date dateValidite) {
+    public void setDateValidite(LocalDate dateValidite) {
         this.dateValidite = dateValidite;
     }
 

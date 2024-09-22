@@ -1,22 +1,18 @@
 package repository.impl;
 
 import config.DatabaseConnection;
-import entity.Client;
 import entity.EtatProjet;
 import entity.Project;
 import repository.ProjectRepository;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
 public class ProjectRepositoryImpl implements ProjectRepository {
     private Connection connection;
     private final String tableName = "projets";
-
 
     public ProjectRepositoryImpl() {
         try {
@@ -57,15 +53,30 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         try (final PreparedStatement stmt = connection.prepareStatement(query)) {
             int count = 1;
             stmt.setDouble(count++, project.getMargeBeneficiaire());
-
             stmt.setLong(count++, project.getId());
 
             int executed = stmt.executeUpdate();
             if (executed == 0) {
-                throw new SQLException("aucun projet trouve avec cet ID.");
+                throw new SQLException("Aucun projet trouvé avec cet ID.");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erreur :" + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void annullateProject(Long id) {
+        final String query = "UPDATE " + tableName + " SET etat_projet = ?::etatprojet WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, EtatProjet.annule.toString());
+            statement.setLong(2, id);
+
+            int executed = statement.executeUpdate();
+            if (executed == 0) {
+                throw new SQLException("Aucun projet trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors de l'annulation du projet : " + e.getMessage(), e);
         }
     }
 
@@ -83,7 +94,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 return Optional.empty();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erreur lors de la récupération du projet : " + e.getMessage(), e);
         }
     }
 
@@ -93,10 +104,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                 rs.getString("name"),
                 rs.getDouble("marge_beneficiaire"),
                 rs.getDouble("cout_total"),
-                EtatProjet.valueOf(rs.getString("etat_projet")),
+                EtatProjet.valueOf(rs.getString("etat_projet")),  // Assurez-vous que les valeurs sont dans l'énumération EtatProjet
                 rs.getLong("client_id")
         );
     }
-
 
 }

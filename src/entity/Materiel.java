@@ -14,7 +14,7 @@ public class Materiel extends Composant {
         this.coefficientQualite = coefficientQualite;
     }
 
-    public Materiel(Long id, String nom, TypeComposant typeComposant,Long projectId, double tauxTva, double coutUnitaire, double quantite, Double coutTransport, Double coefficientQualite) {
+    public Materiel(Long id, String nom, TypeComposant typeComposant, Long projectId, double tauxTva, double coutUnitaire, double quantite, Double coutTransport, Double coefficientQualite) {
         super(id, nom, typeComposant, tauxTva, projectId);
         this.coutUnitaire = coutUnitaire;
         this.quantite = quantite;
