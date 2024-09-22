@@ -51,7 +51,7 @@ public class ProjectUi {
 
 
     private void showOneProject() {
-        System.out.println("Veuillez entrer l'ID du projet à modifier:");
+        System.out.println("Veuillez entrer l'ID du projet :");
         Long projectId = scanner.nextLong();
         scanner.nextLine();
 
