@@ -13,11 +13,13 @@ public class CalculUi {
     private final ProjectService projectService;
     private final ComposantService composantService;
     private final ProjectUi projectUi;
+    private final DevisUi devisUi;
 
-    public CalculUi(ProjectService projectService, ComposantService composantService, ProjectUi projectUi) {
+    public CalculUi(ProjectService projectService, ComposantService composantService, ProjectUi projectUi, DevisUi devisUi) {
         this.projectService = projectService;
         this.composantService = composantService;
         this.projectUi = projectUi;
+        this.devisUi = devisUi;
     }
 
     public void menu() {
@@ -70,6 +72,8 @@ public class CalculUi {
 
             Double coutTotal = totalComposant + project.get().getMargeBeneficiaire();
             System.out.println("Total des couts : " + coutTotal + "$\n");
+
+            devisUi.addToDevis(projectId, coutTotal);
 
         } else {
             System.out.println("Project not found");

@@ -38,6 +38,11 @@ public class ProjectServiceImpl implements ProjectService {
         System.out.println("updated successfully");
     }
 
+    @Override
+    public void annulerProjet(Long id) {
+        projectRepository.annullateProject(id);
+    }
+
 
     /**
      * @param id

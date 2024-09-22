@@ -133,7 +133,7 @@ public class ProjectUi {
         Long projectId = scanner.nextLong();
         scanner.nextLine();
 
-        Optional<Project> projectOptional = projectService.getProject(projectId);  
+        Optional<Project> projectOptional = projectService.getProject(projectId);
 
         if (projectOptional.isPresent()) {
             Project project = projectOptional.get();

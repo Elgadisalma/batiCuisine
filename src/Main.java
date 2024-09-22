@@ -1,13 +1,13 @@
 import repository.impl.ClientRepositoryImpl;
 import repository.impl.ComposantRepositoryImpl;
+import repository.impl.DevisRepositoryImpl;
 import repository.impl.ProjectRepositoryImpl;
+import service.DevisService;
 import service.impl.ClientServiceImpl;
 import service.impl.ComposantServiceImpl;
+import service.impl.DevisServiceImpl;
 import service.impl.ProjectServiceImpl;
-import ui.ClientUi;
-import ui.ComposantUi;
-import ui.CalculUi;
-import ui.ProjectUi;
+import ui.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,9 +36,15 @@ public class Main {
 //        composantUi.menu();
 
 
+        // DevisUi et CalculUi
+        DevisRepositoryImpl devisRepository = new DevisRepositoryImpl();
+        DevisServiceImpl devisService = new DevisServiceImpl(devisRepository);
+        DevisUi devisUi = new DevisUi(projectService,devisService);
+        CalculUi calculUi = new CalculUi(projectService, composantService, projectUi, devisUi);
 
-//        Calcule
-        CalculUi calculUi = new CalculUi(projectService, composantService, projectUi);
+        // Démarrer le menu principal de CalculUi
         calculUi.menu();
+
+
     }
 }
