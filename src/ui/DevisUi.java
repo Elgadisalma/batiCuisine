@@ -3,6 +3,7 @@ package ui;
 import entity.Devis;
 import service.DevisService;
 import service.ProjectService;
+import utils.InputValidator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,8 +28,25 @@ public class DevisUi {
         if (choix == 1) {
             System.out.println("Total du montant estimé : " + coutTotal + "$");
 
-            LocalDate dateEmission = saisirDate("Entrez la date d'émission du devis (format : jj/mm/aaaa) :");
-            LocalDate dateValidite = saisirDate("Entrez la date de validité du devis (format : jj/mm/aaaa) :");
+            LocalDate dateEmission = null;
+            while (dateEmission == null) {
+                System.out.println("Entrez la date d'émission du devis (format : jj/mm/aaaa) :");
+                String dateEmissionInp = scanner.nextLine();
+                dateEmission = InputValidator.parseDate(dateEmissionInp);
+                if (dateEmission == null) {
+                    System.out.println("Veuillez reessayer avec une date valide");
+                }
+            }
+
+            LocalDate dateValidite = null;
+            while (dateValidite == null) {
+                System.out.println("Entrez la date de validité du devis (format : jj/mm/aaaa) :");
+                String dateValiditeInp = scanner.nextLine();
+                dateValidite = InputValidator.parseDate(dateValiditeInp);
+                if (dateValidite == null) {
+                    System.out.println("Veuillez reessayer avec une date valide");
+                }
+            }
 
             System.out.println("Voulez-vous valider ce devis ou annuler le projet ? (1- valider, 0- annuler)");
             int accepter = scanner.nextInt();
@@ -56,21 +74,5 @@ public class DevisUi {
         }
     }
 
-    private LocalDate saisirDate(String message) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate date = null;
-        boolean isValid = false;
 
-        while (!isValid) {
-            System.out.println(message);
-            String dateInput = scanner.nextLine();
-            try {
-                date = LocalDate.parse(dateInput, formatter);
-                isValid = true;
-            } catch (DateTimeParseException e) {
-                System.out.println("Format de date invalide, veuillez réessayer.");
-            }
-        }
-        return date;
-    }
 }

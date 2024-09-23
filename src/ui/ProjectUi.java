@@ -5,8 +5,10 @@ import entity.EtatProjet;
 import entity.Project;
 import service.ClientService;
 import service.ProjectService;
+import utils.InputValidator;
 
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -14,10 +16,12 @@ public class ProjectUi {
     Scanner scanner = new Scanner(System.in);
     private final ClientService clientService;
     private final ProjectService projectService;
+    private final ClientUi clientUi;
 
-    public ProjectUi(ClientService clientService, ProjectService projectService) {
+    public ProjectUi(ClientService clientService, ProjectService projectService, ClientUi clientUi) {
         this.clientService = clientService;
         this.projectService = projectService;
+        this.clientUi = clientUi;
     }
 
 
@@ -84,29 +88,13 @@ public class ProjectUi {
                 if (existingClient.isPresent()) {
                     client = existingClient.get();
                 } else {
-                    System.out.println("Erreur: Le client avec cet ID n'existe pas.");
+                    System.out.println("Client non existant");
                     return;
                 }
                 break;
 
             case 0:
-                System.out.println("\nVeuillez entrer le nom du client:");
-                String clientName = scanner.nextLine();
-
-                System.out.println("\nVeuillez entrer l'adresse du client:");
-                String clientAdresse = scanner.nextLine();
-
-                System.out.println("\nVeuillez entrer le numéro de téléphone du client:");
-                String clientPhoneNumber = scanner.nextLine();
-
-                System.out.println("\nLe client est-il professionnel ? (1: Oui, 0: Non)");
-                boolean isProfessionnel = scanner.nextInt() == 1;
-                scanner.nextLine();
-
-                client = new Client(clientName, clientAdresse, clientPhoneNumber, isProfessionnel);
-
-                clientService.createClient(client);
-                System.out.println("Nouveau client créé avec succès.");
+                clientUi.createClient();
                 break;
 
             default:
@@ -116,9 +104,18 @@ public class ProjectUi {
 
         System.out.println("\nVeuillez entrer le nom du projet:");
         String name = scanner.nextLine();
+        while (!InputValidator.validateString(name)) {
+            System.out.println("Erreur : Nom du personnel non valide. Veuillez réessayer.");
+            name = scanner.next();
+        }
 
         System.out.println("\nVeuillez entrer la marge bénéficiaire du projet:");
-        Double margeBeneficiaire = scanner.nextDouble();
+        String margeBeneficiaireInput = scanner.next();
+        while (!InputValidator.validateDouble(margeBeneficiaireInput)) {
+            System.out.println("Erreur : Marge non valide non valide. Veuillez réessayer.");
+            margeBeneficiaireInput = scanner.next();
+        }
+        Double margeBeneficiaire = Double.parseDouble(margeBeneficiaireInput);
 
         EtatProjet etatProjet = EtatProjet.en_cours;
 
@@ -138,8 +135,13 @@ public class ProjectUi {
         if (projectOptional.isPresent()) {
             Project project = projectOptional.get();
 
-            System.out.println("Veuillez entrer la nouvelle marge bénéficiaire:");
-            Double margeBeneficiaire = scanner.nextDouble();
+            System.out.println("\nVeuillez entrer la marge bénéficiaire du projet:");
+            String margeBeneficiaireInput = scanner.next();
+            while (!InputValidator.validateDouble(margeBeneficiaireInput)) {
+                System.out.println("Erreur : Marge non valide non valide. Veuillez réessayer.");
+                margeBeneficiaireInput = scanner.next();
+            }
+            Double margeBeneficiaire = Double.parseDouble(margeBeneficiaireInput);
 
             project.setMargeBeneficiaire(margeBeneficiaire);
 

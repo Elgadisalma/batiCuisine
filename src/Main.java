@@ -24,8 +24,8 @@ public class Main {
 //        projects
         ProjectRepositoryImpl projectRepository = new ProjectRepositoryImpl();
         ProjectServiceImpl projectService = new ProjectServiceImpl(projectRepository, clientRepository);
-        ProjectUi projectUi = new ProjectUi(clientService, projectService);
-//        projectUi.menu();
+        ProjectUi projectUi = new ProjectUi(clientService, projectService, clientUi);
+        projectUi.menu();
 
 
 
@@ -43,7 +43,7 @@ public class Main {
         CalculUi calculUi = new CalculUi(projectService, composantService, projectUi, devisUi);
 
         // Démarrer le menu principal de CalculUi
-        calculUi.menu();
+//        calculUi.menu();
 
 
     }

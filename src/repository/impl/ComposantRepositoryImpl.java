@@ -53,11 +53,6 @@ public class ComposantRepositoryImpl implements ComposantRepository {
 
 
     @Override
-    public Optional<Materiel> findByName(int id) {
-        return Optional.empty();
-    }
-
-    @Override
     public void savePersonnel(Personnel personnel) {
         final String query = "INSERT INTO personnel (nom, type_composant, taux_tva, projet_id, taux_horaire, heures_travail, productivite_ouvrier) VALUES(?,?::typecomposant,?,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(query)) {

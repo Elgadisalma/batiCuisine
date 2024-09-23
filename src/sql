@@ -11,7 +11,7 @@
        phoneNumber VARCHAR(15) NOT NULL,
        professionnel BOOLEAN NOT NULL
    );
-   
+
    CREATE TABLE projets (
        id SERIAL PRIMARY KEY,
        name VARCHAR(255) NOT NULL,
