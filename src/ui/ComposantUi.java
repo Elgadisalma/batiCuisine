@@ -19,7 +19,7 @@ public class ComposantUi {
     public void menu() {
         System.out.println("Menu composant");
         System.out.println("1- Voulez-vous ajouter des materiaux");
-        System.out.println("2- Voulez-vous ajouter des main-d'oeuvre");
+        System.out.println("2- Voulez-vous ajouter des mains d'oeuvre");
         System.out.println("3- Exit");
 
         while (true) {
@@ -32,9 +32,9 @@ public class ComposantUi {
                     ajoutPersonnel();
                     break;
                 case 3:
-                    System.exit(0);
+                    return;
                 default:
-                    System.out.println("Choix non valide. Veuillez réessayer.");
+                    System.out.println("Choix non valide");
             }
         }
     }

@@ -20,11 +20,11 @@ public class ClientUi {
 
     public void menu() {
         while (true) {
-            System.out.println("\n1. Create Client");
-            System.out.println("2. Show one Client");
-            System.out.println("3. Update Client");
-            System.out.println("4. Delete Client");
-            System.out.println("5. Show all Clients");
+            System.out.println("\n1. Ajouter un nouveau client");
+            System.out.println("2. Chercher un client existant");
+            System.out.println("3. Modifier un client");
+            System.out.println("4. Supprimer un client");
+            System.out.println("5. Afficher tous les clients");
             System.out.println("6. Exit");
 
             int choix = scanner.nextInt();
@@ -47,7 +47,9 @@ public class ClientUi {
                     showAllClients();
                     break;
                 case 6:
-                    break;
+                    return;
+                default:
+                    System.out.println("Choix invalide");
             }
         }
     }

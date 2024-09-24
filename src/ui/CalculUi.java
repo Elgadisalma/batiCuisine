@@ -26,7 +26,7 @@ public class CalculUi {
         while (true) {
             System.out.println("\n1. Afficher toutes les taxes des composant");
             System.out.println("2. Calcul Total des cout");
-            System.out.println("4. Exit");
+            System.out.println("3. Exit");
 
             int choix = scanner.nextInt();
             scanner.nextLine();
@@ -38,8 +38,8 @@ public class CalculUi {
                 case 2:
                     calculTotal();
                     break;
-                case 4:
-                    System.exit(0);
+                case 3:
+                    return;
                 default:
                     System.out.println("Invalid option");
             }

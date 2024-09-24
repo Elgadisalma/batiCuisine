@@ -1,5 +1,6 @@
 package ui;
 
+import com.sun.tools.javac.Main;
 import entity.Client;
 import entity.EtatProjet;
 import entity.Project;
@@ -27,9 +28,9 @@ public class ProjectUi {
 
     public void menu() {
         while (true) {
-            System.out.println("\n1. Create Projet");
-            System.out.println("2. Show one Project");
-            System.out.println("3. Edit Project");
+            System.out.println("\n1. Ajouter un nouveau projet");
+            System.out.println("2. Chercher un projet existant");
+            System.out.println("3. Modifier la marge d'un project");
             System.out.println("4. Exit");
 
             int choix = scanner.nextInt();
@@ -46,7 +47,7 @@ public class ProjectUi {
                     editProject();
                     break;
                 case 4:
-                    System.exit(0);
+                    return;
                 default:
                     System.out.println("Invalid option");
             }
@@ -69,9 +70,9 @@ public class ProjectUi {
     }
 
     private void createProject() {
-        System.out.println("Création d'un projet:");
+        System.out.println("\n--- Création d'un Nouveau Projet---");
 
-        System.out.println("Le client existe-t-il déjà ? (1: Oui, 0: Non)");
+        System.out.println("\nLe client existe-t-il déjà ? (1: Oui, 0: Non)");
         int choix = scanner.nextInt();
         scanner.nextLine();
 
@@ -123,7 +124,6 @@ public class ProjectUi {
 
         projectService.createProject(project, client);
     }
-
 
     public void editProject() {
         System.out.println("Veuillez entrer l'ID du projet à modifier:");
