@@ -46,7 +46,6 @@
    );
 
    CREATE TABLE materiel (
-       composant_id INT NOT NULL,
        cout_unitaire DOUBLE PRECISION NOT NULL,
        quantite DOUBLE PRECISION NOT NULL,
        cout_transport DOUBLE PRECISION,
@@ -54,7 +53,6 @@
    ) INHERITS (composant);
 
    CREATE TABLE personnel (
-       composant_id INT NOT NULL,
        taux_horaire DOUBLE PRECISION NOT NULL,
        heures_travail DOUBLE PRECISION NOT NULL,
        productivite_ouvrier DOUBLE PRECISION

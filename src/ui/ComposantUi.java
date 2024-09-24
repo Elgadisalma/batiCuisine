@@ -99,6 +99,7 @@ public class ComposantUi {
 
         Materiel materiel = new Materiel(nom, typeComposant, tauxTva, projectId, coutUnitaire, quantite, coutTransport, coefficientQualite);
         composantService.saveMateriel(materiel);
+        menu();
     }
 
     public void ajoutPersonnel() {
@@ -153,5 +154,6 @@ public class ComposantUi {
 
         Personnel personnel = new Personnel(nom, typeComposant, tauxTva, projectId, tauxHoraire, heuresTravail, productiviteOuvrier);
         composantService.savePersonnel(personnel);
+        menu();
     }
 }
