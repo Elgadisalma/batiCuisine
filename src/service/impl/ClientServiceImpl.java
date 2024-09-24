@@ -17,9 +17,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void createClient(Client client) {
-        clientRepository.addClient(client);
-        System.out.println("Client created successfully");
+    public Long createClient(Client client) {
+        return clientRepository.addClient(client);
     }
 
     @Override

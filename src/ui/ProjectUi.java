@@ -77,11 +77,12 @@ public class ProjectUi {
         scanner.nextLine();
 
         Client client = null;
+        Long clientId = null;  // This will store the client ID
 
         switch (choix) {
             case 1:
                 System.out.println("Veuillez entrer l'ID du client:");
-                Long clientId = scanner.nextLong();
+                clientId = scanner.nextLong();
                 scanner.nextLine();
 
                 Optional<Client> existingClient = clientService.getClientById(clientId);
@@ -95,7 +96,31 @@ public class ProjectUi {
                 break;
 
             case 0:
-                clientUi.createClient();
+                System.out.println("\nVeuillez entrer le nom du client:");
+                String clientName = scanner.nextLine();
+                System.out.println("\nVeuillez entrer l'adresse du client:");
+                String clientAdresse = scanner.nextLine();
+                System.out.println("\nVeuillez entrer le numéro de téléphone du client:");
+                String clientPhoneNumber = scanner.nextLine();
+                System.out.println("\nLe client est-il professionnel ? (1: Oui, 0: Non)");
+                boolean isProfessionnel = scanner.nextInt() == 1;
+                scanner.nextLine();
+
+                client = new Client(clientName, clientAdresse, clientPhoneNumber, isProfessionnel);
+                clientId = clientService.createClient(client);
+
+                if (clientId == null) {
+                    System.out.println("Erreur lors de la création du client.");
+                    return;
+                }
+
+                Optional<Client> newClient = clientService.getClientById(clientId);
+                if (newClient.isPresent()) {
+                    client = newClient.get();
+                } else {
+                    System.out.println("Erreur lors de la récupération du client nouvellement créé.");
+                    return;
+                }
                 break;
 
             default:
@@ -106,24 +131,27 @@ public class ProjectUi {
         System.out.println("\nVeuillez entrer le nom du projet:");
         String name = scanner.nextLine();
         while (!InputValidator.validateString(name)) {
-            System.out.println("Erreur : Nom du personnel non valide. Veuillez réessayer.");
+            System.out.println("Erreur : Nom du projet non valide. Veuillez réessayer.");
             name = scanner.next();
         }
 
         System.out.println("\nVeuillez entrer la marge bénéficiaire du projet:");
         String margeBeneficiaireInput = scanner.next();
         while (!InputValidator.validateDouble(margeBeneficiaireInput)) {
-            System.out.println("Erreur : Marge non valide non valide. Veuillez réessayer.");
+            System.out.println("Erreur : Marge non valide. Veuillez réessayer.");
             margeBeneficiaireInput = scanner.next();
         }
         Double margeBeneficiaire = Double.parseDouble(margeBeneficiaireInput);
 
         EtatProjet etatProjet = EtatProjet.en_cours;
 
-        Project project = new Project(name, margeBeneficiaire,0.0, etatProjet, client.getId());
+        Project project = new Project(name, margeBeneficiaire, 0.0, etatProjet, clientId);
 
         projectService.createProject(project, client);
+
+        System.out.println("Projet créé avec succès.");
     }
+
 
     public void editProject() {
         System.out.println("Veuillez entrer l'ID du projet à modifier:");

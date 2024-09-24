@@ -14,9 +14,8 @@ public class DatabaseConnection {
 
     private DatabaseConnection() throws SQLException {
         try {
-            Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(URL_DB, USERNAME_DB, PASSWORD_DB);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new SQLException("Database Driver not found", e);
         }
     }

@@ -23,14 +23,16 @@ public class ProjectServiceImpl implements ProjectService {
      */
     @Override
     public void createProject(Project project, Client client) {
-        Long clientId = clientRepository.addClient(client);
-
-        project.setClientId(clientId);
+        if (project.getClientId() == null) {
+            Long clientId = clientRepository.addClient(client);
+            project.setClientId(clientId);
+        }
 
         projectRepository.saveProject(project);
 
-        System.out.println("Projet ajouté avec succès.");
+        System.out.println("Projet ajoute avec succes");
     }
+
 
     @Override
     public void updateProject(Project project) {
